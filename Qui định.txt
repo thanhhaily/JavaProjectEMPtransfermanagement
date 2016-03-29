@@ -1,0 +1,20 @@
+﻿Title của mỗi form đặt font size 24
+Ở trong cái hình không có prefix của combobox, mình quy định luôn là cbx luôn nghe a!
+table --> tbl
+
+Quy định đặt ID các obj
+Employee: EMP***
+Project: PRJ***
+Transfer: TFR***
+User: USR***
+
+Quy uoc phan quyen
+President: 11
+HR: 12
+PM: 13
+
+Các status:
+Pending
+Approved
+Declined
+Transfered
