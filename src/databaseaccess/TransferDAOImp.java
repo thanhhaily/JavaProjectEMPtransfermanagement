@@ -106,7 +106,7 @@ public class TransferDAOImp implements TransferDAO {
                     + "or '" + date2 + "' between startDate and endDate "
                     + " or startDate between '" + date1 + "'"
                     + " and '" + date2 + "'" + " or endDate between '" + date1 + "' and '" + date2 + "')"
-                    + "and status = 'Approved') and isDeleted = '0'";
+                    + "and status like 'Approved%') and isDeleted = '0'";
             System.out.println(query);
             ResultSet rs = st.executeQuery(query);
 
@@ -174,7 +174,7 @@ public class TransferDAOImp implements TransferDAO {
                     + "or '" + dateTo + "' between startDate and endDate "
                     + " or startDate between '" + dateFrom + "'"
                     + " and '" + dateTo + "'" + " or endDate between '" + dateFrom + "' and '" + dateTo + "')"
-                    + "and status = 'Approved') and isDeleted = '0'";
+                    + "and status like 'Approved%') and isDeleted = '0'";
             ResultSet rs = st.executeQuery(query);
 
             JdbcRowSet jr = new JdbcRowSetImpl(rs);

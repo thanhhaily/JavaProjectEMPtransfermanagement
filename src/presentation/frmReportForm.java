@@ -93,6 +93,8 @@ public class frmReportForm extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         cbxAndOr = new javax.swing.JComboBox<>();
         btnGenerate = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        radAllRecord = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -257,6 +259,28 @@ public class frmReportForm extends javax.swing.JDialog {
             }
         });
 
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        buttonGroup1.add(radAllRecord);
+        radAllRecord.setText("All records");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(radAllRecord)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(radAllRecord)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -264,13 +288,15 @@ public class frmReportForm extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(40, 40, 40)
-                        .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -287,6 +313,8 @@ public class frmReportForm extends javax.swing.JDialog {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -306,7 +334,7 @@ public class frmReportForm extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -336,7 +364,7 @@ public class frmReportForm extends javax.swing.JDialog {
             try {
                 Font fontTitle = new Font(FontFamily.HELVETICA, 20, Font.BOLD);
 
-                String fileName = "Report" + " " + df.format(dateNow) + ".pdf";
+                String fileName = "../EMPtranfermanagement/Report" + " " + df.format(dateNow) + ".pdf";
                 PdfWriter.getInstance(document, new FileOutputStream(fileName));
 
                 document.open();
@@ -449,7 +477,7 @@ public class frmReportForm extends javax.swing.JDialog {
                 try {
                     Font fontTitle = new Font(FontFamily.HELVETICA, 20, Font.BOLD);
                     
-                    String fileName = "Report" + " " + df.format(dateNow) + ".pdf";
+                    String fileName = "../EMPtranfermanagement/Report" + " " + df.format(dateNow) + ".pdf";
                     PdfWriter.getInstance(document, new FileOutputStream(fileName));
 
                     document.open();
@@ -573,7 +601,7 @@ public class frmReportForm extends javax.swing.JDialog {
                 try {
                     Font fontTitle = new Font(FontFamily.HELVETICA, 20, Font.BOLD);
                     
-                    String fileName = "Report" + " " + df.format(dateNow) + ".pdf";
+                    String fileName = "../EMPtranfermanagement/Report" + " " + df.format(dateNow) + ".pdf";
                     PdfWriter.getInstance(document, new FileOutputStream(fileName));
 
                     document.open();
@@ -674,6 +702,116 @@ public class frmReportForm extends javax.swing.JDialog {
                     Logger.getLogger(frmReportForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
+        if(radAllRecord.isSelected()) {
+            List<Transfer> transferList = new ArrayList<>();
+            transferList = empObj.searchAllRecord();
+            
+            Document document = new Document();
+                try {
+                    Font fontTitle = new Font(FontFamily.HELVETICA, 20, Font.BOLD);
+                    
+                    String fileName = "../EMPtranfermanagement/Report" + " " + df.format(dateNow) + ".pdf";
+                    PdfWriter.getInstance(document, new FileOutputStream(fileName));
+
+                    document.open();
+
+                    Image imageLogo = Image.getInstance(this.getClass().getResource("/images/onlinelogomaker-afterscale2.png"));
+                    imageLogo.setAbsolutePosition(20, 750f);
+                    document.add(imageLogo);
+
+                    Paragraph titlePara = new Paragraph("EMP Transfer Application", fontTitle);
+                    titlePara.setAlignment(Element.ALIGN_CENTER);
+                    titlePara.setSpacingAfter(5);
+                    document.add(titlePara);
+
+                    Paragraph creditPara = new Paragraph("Created by Ly Thanh Hai + Nguyen Khanh", FontFactory.getFont(FontFactory.HELVETICA, 10, Font.ITALIC));
+                    creditPara.setAlignment(Element.ALIGN_CENTER);
+                    creditPara.setSpacingAfter(10);
+                    document.add(creditPara);
+
+
+                    Paragraph slashPara = new Paragraph("All transfer records",
+                            FontFactory.getFont(FontFactory.HELVETICA, 15, Font.BOLD));
+                    slashPara.setSpacingAfter(40);
+                    slashPara.setAlignment(Element.ALIGN_CENTER);
+                    document.add(slashPara);
+
+                    PdfPTable table = new PdfPTable(5);
+                    table.setWidthPercentage(100);
+
+                    Font font = new Font(FontFamily.HELVETICA, 15, Font.BOLD);
+                    Paragraph paragraphCellHeading = new Paragraph("Report", font);
+
+                    PdfPCell cellHeading = new PdfPCell(paragraphCellHeading);
+                    BaseColor myColor = WebColors.getRGBColor("#41a5c2");
+                    cellHeading.setColspan(5);
+                    cellHeading.setBackgroundColor(myColor);
+                    cellHeading.setFixedHeight(30.3f);
+                    cellHeading.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cellHeading.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cellHeading);
+
+                    Font fBody = new Font(FontFamily.HELVETICA, 13, Font.NORMAL, GrayColor.BLACK);
+
+                    PdfPCell cellTitle1 = new PdfPCell(new Phrase("Transfer ID", fBody));
+                    cellTitle1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cellTitle1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cellTitle1);
+                    PdfPCell cellTitle2 = new PdfPCell(new Phrase("Emp ID", fBody));
+                    cellTitle2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cellTitle2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cellTitle2);
+                    PdfPCell cellTitle3 = new PdfPCell(new Phrase("From Project", fBody));
+                    cellTitle3.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cellTitle3.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cellTitle3);
+                    PdfPCell cellTitle4 = new PdfPCell(new Phrase("To Project", fBody));
+                    cellTitle4.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cellTitle4.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cellTitle4);
+                    PdfPCell cellTitleStatus = new PdfPCell(new Phrase("Status", fBody));
+                    cellTitleStatus.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cellTitleStatus.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    table.addCell(cellTitleStatus);
+
+                    int cellColorCheck = 1;
+                    for (Transfer e : transferList) {
+                        PdfPCell cellBody1 = new PdfPCell(new Phrase(e.getId()));
+                        PdfPCell cellBody2 = new PdfPCell(new Phrase(e.getEmployeeId()));
+                        PdfPCell cellBody3 = new PdfPCell(new Phrase(e.getFromProjectId()));
+                        PdfPCell cellBody4 = new PdfPCell(new Phrase(e.getToProjectId()));
+                        PdfPCell cellBody5 = new PdfPCell(new Phrase(e.getStatus()));
+                        if (cellColorCheck % 2 == 1) {
+                            cellBody1.setBackgroundColor(BaseColor.ORANGE);
+                            cellBody2.setBackgroundColor(BaseColor.ORANGE);
+                            cellBody3.setBackgroundColor(BaseColor.ORANGE);
+                            cellBody4.setBackgroundColor(BaseColor.ORANGE);
+                            cellBody5.setBackgroundColor(BaseColor.ORANGE);
+                        }
+                        table.addCell(cellBody1);
+                        table.addCell(cellBody2);
+                        table.addCell(cellBody3);
+                        table.addCell(cellBody4);
+                        table.addCell(cellBody5);
+                        cellColorCheck++;
+                    }
+
+                    document.add(table);
+                    JOptionPane.showMessageDialog(this, "Report saved");
+                    
+                    if(Desktop.isDesktopSupported()) {
+                        File reportFile = new File(fileName);
+                        Desktop.getDesktop().open(reportFile);;
+                    }
+
+                    document.close();
+                } catch (DocumentException | FileNotFoundException ex) {
+                    Logger.getLogger(frmReportForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(frmReportForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
     }//GEN-LAST:event_btnGenerateActionPerformed
 
     private void dtcFromDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dtcFromDateMouseClicked
@@ -752,6 +890,8 @@ public class frmReportForm extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JRadioButton radAllRecord;
     private javax.swing.JRadioButton radInDateRange;
     private javax.swing.JRadioButton radInMonth;
     private javax.swing.JRadioButton radInProject;

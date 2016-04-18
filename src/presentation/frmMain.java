@@ -59,6 +59,7 @@ public class frmMain extends javax.swing.JFrame {
         mnuTransfer = new javax.swing.JMenu();
         mniNewTransfer = new javax.swing.JMenuItem();
         mniTransferApproveTransfer = new javax.swing.JMenuItem();
+        mniRequestLog = new javax.swing.JMenuItem();
         mnuReport = new javax.swing.JMenu();
         mniGenerateReport = new javax.swing.JMenuItem();
 
@@ -189,6 +190,14 @@ public class frmMain extends javax.swing.JFrame {
         });
         mnuTransfer.add(mniTransferApproveTransfer);
 
+        mniRequestLog.setText("Transfer Request Logs");
+        mniRequestLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRequestLogActionPerformed(evt);
+            }
+        });
+        mnuTransfer.add(mniRequestLog);
+
         jMenuBar1.add(mnuTransfer);
 
         mnuReport.setText("Report");
@@ -266,6 +275,7 @@ public class frmMain extends javax.swing.JFrame {
         mniTransferApproveTransfer.setEnabled(false);
         mniNewTransfer.setEnabled(false);
         mniProjectManage.setEnabled(false);
+        mniRequestLog.setEnabled(false);
     }
 
 
@@ -335,6 +345,11 @@ public class frmMain extends javax.swing.JFrame {
         manageProjectForm.setVisible(true);
     }//GEN-LAST:event_mniProjectManageActionPerformed
 
+    private void mniRequestLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRequestLogActionPerformed
+        frmRequestLog requestLogForm = new frmRequestLog(this, true);
+        requestLogForm.setVisible(true);
+    }//GEN-LAST:event_mniRequestLogActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -385,6 +400,7 @@ public class frmMain extends javax.swing.JFrame {
     public static javax.swing.JMenuItem mniGenerateReport;
     public static javax.swing.JMenuItem mniNewTransfer;
     public static javax.swing.JMenuItem mniProjectManage;
+    public static javax.swing.JMenuItem mniRequestLog;
     public static javax.swing.JMenuItem mniSearchEmployee;
     public static javax.swing.JMenuItem mniSearchTransferRecord;
     public static javax.swing.JMenuItem mniTransferApproveTransfer;

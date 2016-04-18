@@ -7,6 +7,7 @@ package presentation;
 
 import databaseaccess.EmployeeDAOImp;
 import databaseaccess.DBConnect;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,6 +17,8 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.layout.Border;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -165,11 +168,11 @@ public class frmEmployeeManage extends javax.swing.JDialog {
 
         jLabel9.setText("Current status:");
 
-        jLabel3.setText("Name:");
+        jLabel3.setText("Name*:");
 
         chkJava.setText("Java");
 
-        jLabel4.setText("Email:");
+        jLabel4.setText("Email*:");
 
         chkHtml5.setText("HTML5");
 
@@ -180,7 +183,7 @@ public class frmEmployeeManage extends javax.swing.JDialog {
         jLabel6.setText("Position:");
 
         cbxPosition.setEditable(true);
-        cbxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Kế toán", "Trưởng phòng", "Thủ quỹ", "Phó Giám đốc", "Giám đốc" }));
+        cbxPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Accounting", "Secretary", "Developer", "Designer", "Marketing", "System Analize" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -207,11 +210,11 @@ public class frmEmployeeManage extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkSql))
                     .addComponent(lblCurrentStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtAddress)
                     .addComponent(txtPhone)
                     .addComponent(txtEmail)
                     .addComponent(txtName)
-                    .addComponent(cbxPosition, 0, 208, Short.MAX_VALUE))
+                    .addComponent(cbxPosition, 0, 340, Short.MAX_VALUE)
+                    .addComponent(txtAddress))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -272,10 +275,10 @@ public class frmEmployeeManage extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,22 +367,22 @@ public class frmEmployeeManage extends javax.swing.JDialog {
                     lblCurrentStatus.setText(employeeDAOImp.getCurrentStatus(employee.getId()));
                     int position = 5;
                     switch (employee.getPosition()) {
-                        case "Nhân viên":
+                        case "Accounting":
                             position = 0;
                             break;
-                        case "Kế toán":
+                        case "Secretary":
                             position = 1;
                             break;
-                        case "Trưởng phòng":
+                        case "Developer":
                             position = 2;
                             break;
-                        case "Thủ quỹ":
+                        case "Designer":
                             position = 3;
                             break;
-                        case "Phó Giám đốc":
+                        case "Marketing":
                             position = 4;
                             break;
-                        case "Giám đốc":
+                        case "System Analize":
                             position = 5;
                             break;
                         default:
@@ -392,7 +395,7 @@ public class frmEmployeeManage extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
         try {
             data.clear();
             DBConnect dbc = new DBConnect();
@@ -419,37 +422,50 @@ public class frmEmployeeManage extends javax.swing.JDialog {
             System.out.println(e.getMessage());
         }
     }
+    //Đặt sự kiện cho nút Add
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String skill = "";
-        if (chkJava.isSelected()) {
-            skill += "Java ";
+        if (!"".equals(txtName.getText()) && !"".equals(txtEmail.getText())) {
+            String skill = "";
+            if (chkJava.isSelected()) {
+                skill += "Java ";
+            }
+            if (chkNet.isSelected()) {
+                skill += ".Net ";
+            }
+            if (chkHtml5.isSelected()) {
+                skill += "HTML5 ";
+            }
+            if (chkSql.isSelected()) {
+                skill += "SQL ";
+            }
+            Employee employee = new Employee(String.valueOf(cbxId.getSelectedItem()).toUpperCase(), txtName.getText(), txtEmail.getText(), txtPhone.getText(), txtAddress.getText(), skill, String.valueOf(cbxPosition.getSelectedItem()), false);
+            EmployeeDAOImp employeeDAOImp = new EmployeeDAOImp();
+            employeeDAOImp.add(employee);
+            JOptionPane.showMessageDialog(this, DBConnect.message);
+            cbxId.setSelectedIndex(0);
+            txtName.setText(null);
+            txtEmail.setText(null);
+            txtPhone.setText(null);
+            txtAddress.setText(null);
+            chkHtml5.setSelected(false);
+            chkJava.setSelected(false);
+            chkNet.setSelected(false);
+            chkSql.setSelected(false);
+            cbxPosition.setSelectedIndex(0);
+            txtName.setBorder(BorderFactory.createLineBorder(Color.decode("#000000")));
+            txtEmail.setBorder(BorderFactory.createLineBorder(Color.decode("#000000")));
+            jLabel3.setForeground(Color.black);
+            jLabel4.setForeground(Color.black);
+            getData();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter required field(s).");
+            txtName.setBorder(BorderFactory.createLineBorder(Color.decode("#ff0000")));
+            txtEmail.setBorder(BorderFactory.createLineBorder(Color.decode("#ff0000")));
+            jLabel3.setForeground(Color.red);
+            jLabel4.setForeground(Color.red);
         }
-        if (chkNet.isSelected()) {
-            skill += ".Net ";
-        }
-        if (chkHtml5.isSelected()) {
-            skill += "HTML5 ";
-        }
-        if (chkSql.isSelected()) {
-            skill += "SQL ";
-        }
-        Employee employee = new Employee(String.valueOf(cbxId.getSelectedItem()).toUpperCase(), txtName.getText(), txtEmail.getText(), txtPhone.getText(), txtAddress.getText(), skill, String.valueOf(cbxPosition.getSelectedItem()), false);
-        EmployeeDAOImp employeeDAOImp = new EmployeeDAOImp();
-        employeeDAOImp.add(employee);
-        JOptionPane.showMessageDialog(this, DBConnect.message);
-        cbxId.setSelectedIndex(0);
-        txtName.setText(null);
-        txtEmail.setText(null);
-        txtPhone.setText(null);
-        txtAddress.setText(null);
-        chkHtml5.setSelected(false);
-        chkJava.setSelected(false);
-        chkNet.setSelected(false);
-        chkSql.setSelected(false);
-        cbxPosition.setSelectedIndex(0);
-        getData();
     }//GEN-LAST:event_btnAddActionPerformed
-
+    //Đặt sự kiện cho nút Save
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String skill = "";
         if (chkJava.isSelected()) {
@@ -480,7 +496,7 @@ public class frmEmployeeManage extends javax.swing.JDialog {
         cbxPosition.setSelectedIndex(0);
         getData();
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    //Đặt sự kiện cho nút Delete
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure deleting this employee?");
         if (dialogResult == JOptionPane.YES_OPTION) {

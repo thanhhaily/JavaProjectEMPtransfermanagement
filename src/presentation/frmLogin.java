@@ -176,38 +176,44 @@ public class frmLogin extends javax.swing.JDialog {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         lblCurrentDate.setText("Current date: " + df.format(dateNow));
     }
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         UserDAOImp userObj = new UserDAOImp();
-        String username = txtUsername.getText();
+        //Get the username
+        String username = txtUsername.getText().trim();
+        //Get the password
         char[] psw = pwdPassword.getPassword();
+        //Get the user information in database by searching with 'username'
         User user = userObj.getUser(username);
         
+        //Check if the username field or password field is empty
         if (username.equals("") || psw.length == 0) {
             JOptionPane.showMessageDialog(this, "Please enter your id and password");
         } else {
+            //Get the list of ava
             List<String> usernameList = userObj.findUsername();
             boolean checkUsername = false;
+            //Loop through the list, to see if the username is valid
             for(String e : usernameList) {
                 if(e.equals(username)) {
                     checkUsername = true;
-                    System.out.println("Yes");
                     break;
                 }
             }
-            if (checkUsername) {
+            if (checkUsername) { //if the username is valid, then
                 String password = new String();
                 try {
-                    byte[] salt = Base64.getDecoder().decode(user.getSalt());
-                    KeySpec spec = new PBEKeySpec(psw, salt, 2000, 160);
+                    byte[] salt = Base64.getDecoder().decode(user.getSalt()); //Create salt
+                    KeySpec spec = new PBEKeySpec(psw, salt, 2000, 160); //Create keyspec
                     SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
                     SecretKey key = f.generateSecret(spec);
-                    password = Base64.getEncoder().encodeToString(key.getEncoded());
-                    //System.out.println(password);
+                    //Encrypt the password entered by user
+                    password = Base64.getEncoder().encodeToString(key.getEncoded()); 
+                    
                 } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
                     ex.printStackTrace();
                 }
-                if (password.equals(user.getPassword())) {
-                    //JOptionPane.showMessageDialog(this, "You are now logged in");
+                if (password.equals(user.getPassword())) { //If the password is correct
                     
                     this.dispose();
                     frmMain.mniFileLogin.setText("Logout");
@@ -231,8 +237,9 @@ public class frmLogin extends javax.swing.JDialog {
                         frmMain.mniNewTransfer.setEnabled(true);
                         frmMain.mniNewTransfer.setEnabled(true);
                         frmMain.mniProjectManage.setEnabled(true);
+                        frmMain.mniRequestLog.setEnabled(true);
                         frmMain.roleNumber = 12;
-                        // need to know which PM is created the request (in Request Transfer Window)
+                        // to know which PM has created the request (in Request Transfer Window)
                         frmMain.currentPMLoggedIn = user.getId();
                     } else if (user.getRole().equals("hr")) {
                         frmMain.mnuTransfer.setEnabled(true);

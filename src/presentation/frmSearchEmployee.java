@@ -56,6 +56,7 @@ public class frmSearchEmployee extends javax.swing.JDialog {
     public frmSearchEmployee(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        btnSubmit.setEnabled(false);
         if(currentRole==12){
             chkConfirm.setEnabled(true);
         }
@@ -379,7 +380,7 @@ public class frmSearchEmployee extends javax.swing.JDialog {
 
         jLabel11.setText("Project ID:");
 
-        btnSubmit.setEnabled(false);
+        //btnSubmit.setEnabled(false);
         btnSubmit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Invite-24.png"))); // NOI18N
         btnSubmit.setText("Request");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -579,39 +580,37 @@ public class frmSearchEmployee extends javax.swing.JDialog {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String searchData = txtSearch.getText();
         if (radAll.isSelected()) {
-            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' ) AND a.isDeleted='0' ";
+            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' ) AND a.isDeleted='0' ";
             search();
         }
         if (radId.isSelected()) {
-            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' AND a.id='" + searchData + "'" + " UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' ) AND a.isDeleted='0' AND a.id='" + searchData + "'";
+            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' AND a.id='" + searchData + "'" + " UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' ) AND a.isDeleted='0' AND a.id='" + searchData + "'";
             search();
         }
         if (radName.isSelected()) {
-            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' AND a.name='" + searchData + "'" + " UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' ) AND a.isDeleted='0' AND a.name='" + searchData + "'";
+            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' AND a.name='" + searchData + "'" + " UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' ) AND a.isDeleted='0' AND a.name='" + searchData + "'";
             search();
         }
         if (radProject.isSelected()) {
-            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' AND c.id='" + searchData + "'";
+            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' AND c.id='" + searchData + "'";
             search();
         }
         if (radFreeOn.isSelected()) {
             java.util.Date utilDate = dtcSearcDate.getDate();
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' AND a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ('" + sqlDate + "' BETWEEN b.startDate AND b.endDate) AND a.isDeleted='0' AND b.status ='Approved') UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status ='Approved' AND a.isDeleted='0' ) AND a.isDeleted='0'";
+            query = "SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', c.name as 'Current Project', b.startDate as 'Start Date', b.endDate as 'End Date' FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' AND a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ('" + sqlDate + "' BETWEEN b.startDate AND b.endDate) AND a.isDeleted='0' AND b.status LIKE 'Approved%') UNION SELECT a.id as 'ID', a.name as 'Name', a.position as 'Position', a.skill as 'Skill', NULL as 'Current Project', NULL as 'Start Date', NULL as 'End Date' FROM ETM.dbo.Employees a FULL OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId FULL OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id WHERE a.id NOT IN ( 	SELECT a.id 	FROM ETM.dbo.Employees a LEFT OUTER JOIN ETM.dbo.Transfers b ON a.id = b.employeeId LEFT OUTER JOIN ETM.dbo.Projects c ON b.toProjectId = c.id 	WHERE ((SELECT GETDATE()) BETWEEN b.startDate AND b.endDate) AND b.status LIKE 'Approved%' AND a.isDeleted='0' ) AND a.isDeleted='0'";
             search();
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         TransferDAOImp transferDAOImp = new TransferDAOImp();
-        URL url = getClass().getResource("passphrase.txt");
-        File tempFile = new File(url.getPath());
-        File file = new File(tempFile.getParentFile().getParentFile().getParentFile().getParentFile(), "passphrase.txt");
-        String id = "";
+        File file = new File("../EMPtranfermanagement/passphrase.txt");
+        String id = "";        
         try {
             Scanner fileScanner = new Scanner(file);
             id = "TRF" + fileScanner.nextLine();
-            FileWriter fileStream = new FileWriter(url.getPath());
+            FileWriter fileStream = new FileWriter("../EMPtranfermanagement/passphrase.txt");
             BufferedWriter out = new BufferedWriter(fileStream);
             while (fileScanner.hasNextLine()) {
                 String next = fileScanner.nextLine();

@@ -108,10 +108,11 @@ public class ProjectDAOImp implements ProjectDAO {
     }
     
     public void updateProject(Project projectUpdate) {
+        DBConnect dbc = new DBConnect();
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             CachedRowSet cache = new CachedRowSetImpl();
-            cache.setUrl("jdbc:sqlserver://localhost:1433;databaseName=ETM");
+            cache.setUrl(dbc.getConnectionUrl());
             cache.setUsername("sa");
             cache.setPassword("123456");
             cache.setCommand("select * from Projects where id = '" + projectUpdate.getId() + "'");

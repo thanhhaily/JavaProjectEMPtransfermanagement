@@ -19,13 +19,13 @@ public class DBConnect {
 
     public DBConnect() {
         url = "jdbc:sqlserver://";
-        serverName = "localhost:1433";
+        serverName = "10.0.0.17:1433";
         databaseName = "ETM";
         userName = "sa";
         password = "123456";
     }
 
-    private String getConnectionUrl() {
+    public String getConnectionUrl() {
         return url + serverName + ";DatabaseName =  " + databaseName;
     }
 

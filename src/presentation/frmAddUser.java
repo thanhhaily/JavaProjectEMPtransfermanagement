@@ -200,6 +200,7 @@ public class frmAddUser extends javax.swing.JDialog {
         UserDAOImp userObj = new UserDAOImp();
         User user = new User();
         
+        //text field validation
         if(txtUsername.getText().equals("") || txtEMPID.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter all fields");
         } else {
@@ -215,12 +216,14 @@ public class frmAddUser extends javax.swing.JDialog {
                 role = "hr";
             }
             user.setRole(role);
-
+            
+            //Create salt for more secure, because Hashing is not enough
             String randomSalt = new String();
             String password = new String();
             char[] psw = pwdPassword1.getPassword();
             char[] psw2 = pwdPassword2.getPassword();
             
+            //Check if user forgot input password
             if (!Arrays.equals(psw2, psw) || psw.length == 0 || psw2.length == 0) {
                 JOptionPane.showMessageDialog(this, "Password is not correct");
             } else {
@@ -230,20 +233,20 @@ public class frmAddUser extends javax.swing.JDialog {
                     byte[] salt = new byte[8];
                     random.nextBytes(salt);
                     randomSalt = Base64.getEncoder().encodeToString(salt);
-                    //System.out.println(randomSalt);
-
+                    
                     KeySpec spec = new PBEKeySpec(psw, salt, 2000, 160);
                     SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
                     SecretKey key = f.generateSecret(spec);
                     password = Base64.getEncoder().encodeToString(key.getEncoded());
-                    //System.out.println(password);
+                    
                 } catch (NoSuchAlgorithmException | InvalidKeySpecException ex) {
                     ex.printStackTrace();
                 }
 
                 user.setSalt(randomSalt);
                 user.setPassword(password);
-
+                
+                //Make sure the user is added successfully
                 int check = userObj.addUser(user);
                 if(check > 0) {
                     JOptionPane.showMessageDialog(this, "User added");
