@@ -5,7 +5,7 @@
 - Install Java SE8: https://java.com/en/download/
 - Install Microsoft SQL Server 2014: https://www.microsoft.com/en-us/download/details.aspx?id=42299
 - Find 2 files **EmployeeTransferManagementDB.mdf** and **EmployeeTransferManagementDB_log.ldf** in folder **Database**
-- Paste the 2 files to “C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA”
+- Copy and Paste the 2 files to “C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA”
 - Open Start Menu -> SQL Server 2014 Management Studio
 - Right click **Databases** → Choose **Attach**...
 - Browse to “C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA” and attach 2 files: **EmployeeTransferManagementDB.mdf** and **EmployeeTransferManagementDB_log.ldf**
